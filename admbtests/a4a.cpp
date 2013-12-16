@@ -81,11 +81,11 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
  model_data(argc,argv) , function_minimizer(sz)
 {
   initializationfunction();
-  fpar.allocate(1,noFpar,2,"fpar");
-  qpar.allocate(1,noQpar,3,"qpar");
+  fpar.allocate(1,noFpar,1,"fpar");
+  qpar.allocate(1,noQpar,2,"qpar");
   vpar.allocate(1,noVpar,1,"vpar");
   ny1par.allocate(1,noNy1par,1,"ny1par");
-  rpar.allocate(1,noRpar,"rpar");
+  rpar.allocate(1,noRpar,1,"rpar");
   rapar.allocate(1,noRapar,SRaphase,"rapar");
   rbpar.allocate(1,noRbpar,SRbphase,"rbpar");
   nll.allocate("nll");
@@ -421,6 +421,13 @@ void model_parameters::userfunction(void)
   // }
 }
 
+void model_parameters::set_runtime(void)
+{
+  dvector temp("{0.1,1E-6}");
+  convergence_criteria.allocate(temp.indexmin(),temp.indexmax());
+  convergence_criteria=temp;
+}
+
 void model_parameters::report()
 {
  adstring ad_tmp=initial_params::get_reportfile_name();
@@ -451,8 +458,6 @@ model_parameters::~model_parameters()
 {}
 
 void model_parameters::final_calcs(void){}
-
-void model_parameters::set_runtime(void){}
 
 #ifdef _BORLANDC_
   extern unsigned _stklen=10000U;

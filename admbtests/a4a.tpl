@@ -237,11 +237,11 @@ PARAMETER_SECTION
 // *********************************
 
   // the paramters of the fixed effects
-  init_vector fpar(1,noFpar,2)
-  init_vector qpar(1,noQpar,3)
+  init_vector fpar(1,noFpar,1)
+  init_vector qpar(1,noQpar,2)
   init_vector vpar(1,noVpar,1)
   init_vector ny1par(1,noNy1par,1)
-  init_vector rpar(1,noRpar) 
+  init_vector rpar(1,noRpar,1) 
   init_vector rapar(1,noRapar,SRaphase)
   init_vector rbpar(1,noRbpar,SRbphase)
   
@@ -555,6 +555,15 @@ PROCEDURE_SECTION
   //  res<<"fleet\tyear\tage\tobs\tpred\tsd\tres"<<endl<<residuals<<endl;
   //  res.close();
   // }
+
+// *********************************
+//
+RUNTIME_SECTION
+//
+// *********************************
+
+convergence_criteria 0.1,1E-6
+//maximum_function_evaluations 10,20,1000
 
 // *********************************
 //
