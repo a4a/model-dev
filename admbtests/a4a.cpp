@@ -81,8 +81,8 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
  model_data(argc,argv) , function_minimizer(sz)
 {
   initializationfunction();
-  fpar.allocate(1,noFpar,1,"fpar");
-  qpar.allocate(1,noQpar,2,"qpar");
+  fpar.allocate(1,noFpar,2,"fpar");
+  qpar.allocate(1,noQpar,1,"qpar");
   vpar.allocate(1,noVpar,1,"vpar");
   ny1par.allocate(1,noNy1par,1,"ny1par");
   rpar.allocate(1,noRpar,1,"rpar");
@@ -423,7 +423,7 @@ void model_parameters::userfunction(void)
 
 void model_parameters::set_runtime(void)
 {
-  dvector temp("{0.1,1E-6}");
+  dvector temp("{0.05,1E-10}");
   convergence_criteria.allocate(temp.indexmin(),temp.indexmax());
   convergence_criteria=temp;
 }

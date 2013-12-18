@@ -237,8 +237,8 @@ PARAMETER_SECTION
 // *********************************
 
   // the paramters of the fixed effects
-  init_vector fpar(1,noFpar,1)
-  init_vector qpar(1,noQpar,2)
+  init_vector fpar(1,noFpar,2)
+  init_vector qpar(1,noQpar,1)
   init_vector vpar(1,noVpar,1)
   init_vector ny1par(1,noNy1par,1)
   init_vector rpar(1,noRpar,1) 
@@ -562,7 +562,7 @@ RUNTIME_SECTION
 //
 // *********************************
 
-convergence_criteria 0.1,1E-6
+convergence_criteria 0.05,1E-10
 //maximum_function_evaluations 10,20,1000
 
 // *********************************
