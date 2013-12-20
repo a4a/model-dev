@@ -190,6 +190,8 @@ void model_parameters::preliminary_calculations(void)
   //if(srCV>0){
   //  logSdLogR=log(srCV);
   //}
+  //fpar=log(0.1)*max(designF);
+  //qpar=log(1E-5)*max(designF);
 }
 
 void model_parameters::userfunction(void)
@@ -423,9 +425,6 @@ void model_parameters::userfunction(void)
 
 void model_parameters::set_runtime(void)
 {
-  dvector temp("{0.05,1E-10}");
-  convergence_criteria.allocate(temp.indexmin(),temp.indexmax());
-  convergence_criteria=temp;
 }
 
 void model_parameters::report()

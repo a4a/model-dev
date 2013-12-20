@@ -293,6 +293,9 @@ PRELIMINARY_CALCS_SECTION
   //  logSdLogR=log(srCV);
   //}
 
+  //fpar=log(0.1)*max(designF);
+  //qpar=log(1E-5)*max(designF);
+
 // *********************************
 //
 PROCEDURE_SECTION
@@ -562,7 +565,7 @@ RUNTIME_SECTION
 //
 // *********************************
 
-convergence_criteria 0.05,1E-10
+//convergence_criteria 0.05,1E-10
 //maximum_function_evaluations 10,20,1000
 
 // *********************************
