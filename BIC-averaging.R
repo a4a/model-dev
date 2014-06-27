@@ -46,12 +46,12 @@ stock <- ple4
 indices <- ple4.indices
 
 # we need the covariance for proposals / simulations so use fit = "assessment"
-f1 <- a4a(~ te(age, year, k = c(4, 25)), 
-          list(~ s(age, k = 4), ~ s(age, k = 4), ~ age),
+f1 <- sca(fmodel=~ te(age, year, k = c(4, 25)), 
+          qmodel=list(~ s(age, k = 4), ~ s(age, k = 4), ~ age),
           stock = stock, indices = indices, fit = "assessment")
           
-f2 <- a4a(~ te(age, year, k = c(4, 25)), 
-          list(~ te(age, year, k = c(4, 3)), ~ te(age, year, k = c(4, 3)), ~ s(year, k = 3, by = age)),
+f2 <- sca(fmodel=~ te(age, year, k = c(4, 25)), 
+          qmodel=list(~ te(age, year, k = c(4, 3)), ~ te(age, year, k = c(4, 3)), ~ s(year, k = 3, by = age)),
           stock = stock, indices = indices, fit = "assessment")
  
  

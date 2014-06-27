@@ -81,10 +81,10 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
  model_data(argc,argv) , function_minimizer(sz)
 {
   initializationfunction();
-  fpar.allocate(1,noFpar,2,"fpar");
-  qpar.allocate(1,noQpar,1,"qpar");
+  fpar.allocate(1,noFpar,3,"fpar");
+  qpar.allocate(1,noQpar,2,"qpar");
   vpar.allocate(1,noVpar,1,"vpar");
-  ny1par.allocate(1,noNy1par,1,"ny1par");
+  ny1par.allocate(1,noNy1par,4,"ny1par");
   rpar.allocate(1,noRpar,1,"rpar");
   rapar.allocate(1,noRapar,SRaphase,"rapar");
   rbpar.allocate(1,noRbpar,SRbphase,"rbpar");
@@ -332,7 +332,7 @@ void model_parameters::userfunction(void)
         pred(i) += exp(q(locFleet-1, locYear, a)) * stkWt(locYear, a) * exp(n(locYear,a) - surveyTimes(locFleet-1) * locZ);
       }
       locVar = exp(2.0 * v(locFleet, locYear, minAge)); // note variance are stored in the minimum age column
-      nll += obsVec(5) * nldnorm(locObs, pred(i), locVar); // or do we multiply the variance directly...    
+      nll += obsVec(5) * nldnorm(locObs, log(pred(i)), locVar); // or do we multiply the variance directly...    
     }
   }
   //
@@ -425,6 +425,12 @@ void model_parameters::userfunction(void)
 
 void model_parameters::set_runtime(void)
 {
+  dvector temp("{1E-1,1E-2,1E-3,1E-12}");
+  convergence_criteria.allocate(temp.indexmin(),temp.indexmax());
+  convergence_criteria=temp;
+  dvector temp1("{10,20,30,10000}");
+  maximum_function_evaluations.allocate(temp1.indexmin(),temp1.indexmax());
+  maximum_function_evaluations=temp1;
 }
 
 void model_parameters::report()

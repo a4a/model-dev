@@ -237,10 +237,10 @@ PARAMETER_SECTION
 // *********************************
 
   // the paramters of the fixed effects
-  init_vector fpar(1,noFpar,2)
-  init_vector qpar(1,noQpar,1)
+  init_vector fpar(1,noFpar,3)
+  init_vector qpar(1,noQpar,2)
   init_vector vpar(1,noVpar,1)
-  init_vector ny1par(1,noNy1par,1)
+  init_vector ny1par(1,noNy1par,4)
   init_vector rpar(1,noRpar,1) 
   init_vector rapar(1,noRapar,SRaphase)
   init_vector rbpar(1,noRbpar,SRbphase)
@@ -448,7 +448,6 @@ PROCEDURE_SECTION
       }
       locVar = exp(2.0 * v(locFleet, locYear, locAge));
       nll += obsVec(5) * nldnorm(locObs, pred(i), locVar); // or do we multiply the variance directly...    
-      
     } else { // an observation of biomass
     
       pred(i) = 0; // not sure i need to but best to be safe
@@ -457,7 +456,7 @@ PROCEDURE_SECTION
         pred(i) += exp(q(locFleet-1, locYear, a)) * stkWt(locYear, a) * exp(n(locYear,a) - surveyTimes(locFleet-1) * locZ);
       }
       locVar = exp(2.0 * v(locFleet, locYear, minAge)); // note variance are stored in the minimum age column
-      nll += obsVec(5) * nldnorm(locObs, pred(i), locVar); // or do we multiply the variance directly...    
+      nll += obsVec(5) * nldnorm(locObs, log(pred(i)), locVar); // or do we multiply the variance directly...    
           
     }
   }
@@ -565,8 +564,8 @@ RUNTIME_SECTION
 //
 // *********************************
 
-//convergence_criteria 0.05,1E-10
-//maximum_function_evaluations 10,20,1000
+convergence_criteria 1E-1,1E-2,1E-3,1E-12
+maximum_function_evaluations 10,20,30,10000
 
 // *********************************
 //
