@@ -5,7 +5,7 @@ gcv <- function(stk, ids, cohorts=range(stk)[c("minyear")]:range(stk)[c("maxyear
 	names(cv) <- coh
 	cth <- catch.n(stk)
 	for(i in coh){
-		cat(i, ",")
+		cat(i, ", ", sep="")
 		flc <- FLCohort(catch.n(stk))
 		flc[,i] <- NA
 		catch.n(stk) <- as(flc, "FLQuant")
@@ -13,6 +13,7 @@ gcv <- function(stk, ids, cohorts=range(stk)[c("minyear")]:range(stk)[c("maxyear
 		cv[i] <- mean(log(FLCohort(cth)[,i]/FLCohort(catch.n(fit))[,i])^2, na.rm=T)
 		catch.n(stk) <- cth
 	}
+	cat("\n")
 	cv
 }
 
